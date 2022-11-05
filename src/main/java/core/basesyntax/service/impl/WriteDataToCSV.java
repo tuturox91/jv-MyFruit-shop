@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
-public class WriteDataToCSV implements DataWriter<StringBuilder> {
+public class WriteDataToCSV implements DataWriter<ReportDataServiceImpl> {
     private Path filePath;
 
     public WriteDataToCSV(Path filePath) {
@@ -15,7 +15,8 @@ public class WriteDataToCSV implements DataWriter<StringBuilder> {
     }
 
     @Override
-    public void writeData(StringBuilder data) {
+    public void writeData(ReportDataServiceImpl dataBuilder) {
+        StringBuilder data = dataBuilder.buildData();
         if(data.isEmpty()) throw new RuntimeException("Current data is empty");
         try {
             var out = new PrintWriter(filePath.toString(), StandardCharsets.UTF_8);

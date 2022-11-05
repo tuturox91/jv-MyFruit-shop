@@ -1,11 +1,11 @@
 package core.basesyntax.service.impl;
 
 import core.basesyntax.db.ShopStorageDao;
-import core.basesyntax.service.ReportDataBuilder;
+import core.basesyntax.service.ReportDataService;
 
 import java.util.Map;
 
-public class ReportDataBuilderImpl implements ReportDataBuilder<StringBuilder, ShopStorageDao> {
+public class ReportDataServiceImpl implements ReportDataService<StringBuilder, ShopStorageDao> {
 
     private String reportHeaderLine = "fruit,quantity";
     private String reportWordSeparator = ",";
@@ -13,13 +13,13 @@ public class ReportDataBuilderImpl implements ReportDataBuilder<StringBuilder, S
 
 
 
-    public ReportDataBuilderImpl(ShopStorageDao dao,String reportHeaderLine, String reportWordSeparator) {
+    public ReportDataServiceImpl(ShopStorageDao dao, String reportHeaderLine, String reportWordSeparator) {
         this.reportHeaderLine = reportHeaderLine;
         this.reportWordSeparator = reportWordSeparator;
         this.dao = dao;
     }
 
-    public ReportDataBuilderImpl(ShopStorageDao dao) {
+    public ReportDataServiceImpl(ShopStorageDao dao) {
         this.dao = dao;
     }
 

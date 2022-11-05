@@ -34,9 +34,7 @@ public class MainProgram {
             operation.doWork(transaction, shopStorageDao);
         }
 
-        StringBuilder reportData = new ReportDataBuilderImpl(shopStorageDao).buildData();
-
-
+        ReportDataServiceImpl reportData = new ReportDataServiceImpl(shopStorageDao);
 
         new WriteDataToCSV(Path.of("report.csv")).writeData(reportData);
 
