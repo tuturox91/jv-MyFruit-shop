@@ -8,9 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
 public class WriteDataToCSV implements DataWriter<StringBuilder> {
-
-    public static final String CSV_FORMAT = ".csv";
-
     private Path filePath;
 
     public WriteDataToCSV(Path filePath) {
