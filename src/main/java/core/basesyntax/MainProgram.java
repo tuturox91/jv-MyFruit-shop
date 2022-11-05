@@ -34,11 +34,9 @@ public class MainProgram {
             operation.doWork(transaction, shopStorageDao);
         }
 
-        StringBuilder reportData = new ReportDataBuilderImpl(shopStorageDao).buildData();
+        ReportDataServiceImpl reportDataBuilder  = new ReportDataServiceImpl(shopStorageDao);
 
-
-
-        new WriteDataToCSV(Path.of("report.csv")).writeData(reportData);
+        new WriteDataToCSV(Path.of("report.csv")).writeData(reportDataBuilder.buildData());
 
         ShopStorage.storageItems.forEach((s, integer) -> System.out.println("Name: " + s + " Count: " + integer));
     }

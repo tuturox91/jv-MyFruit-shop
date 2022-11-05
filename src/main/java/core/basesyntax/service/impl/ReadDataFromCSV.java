@@ -20,12 +20,12 @@ public class ReadDataFromCSV implements DataReader<List<String>> {
 
     @Override
     public List<String> readData() {
-        List<String> fruitData = new ArrayList<>();
+        List<String> fruitData;
         try {
             fruitData = Files.lines(filePath, StandardCharsets.UTF_8)
                     .skip(LINE_SKIP_IN_DATA_FILE).toList();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException("Cant read file from patch: " + filePath);
         }
         if(fruitData.size() == 0) {
             throw new RuntimeException("File: " + filePath + " is empty");
