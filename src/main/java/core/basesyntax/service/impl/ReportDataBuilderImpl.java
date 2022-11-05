@@ -5,7 +5,7 @@ import core.basesyntax.service.ReportDataBuilder;
 
 import java.util.Map;
 
-public class ReportDataBuilderImpl implements ReportDataBuilder<ReportDataImpl, ShopStorageDao> {
+public class ReportDataBuilderImpl implements ReportDataBuilder<StringBuilder, ShopStorageDao> {
 
     private String reportHeaderLine = "fruit,quantity";
     private String reportWordSeparator = ",";
@@ -24,7 +24,7 @@ public class ReportDataBuilderImpl implements ReportDataBuilder<ReportDataImpl, 
     }
 
     @Override
-    public ReportDataImpl buildData() {
+    public StringBuilder buildData() {
         Map<String, Integer> data = dao.getAllData();
         StringBuilder reportDataBuilder = new StringBuilder(reportHeaderLine);
         data.forEach((fruitName, count) -> {
@@ -33,6 +33,6 @@ public class ReportDataBuilderImpl implements ReportDataBuilder<ReportDataImpl, 
                     .append(reportWordSeparator)
                     .append(count);
           });
-          return new ReportDataImpl(reportDataBuilder);
+          return reportDataBuilder;
     }
 }
