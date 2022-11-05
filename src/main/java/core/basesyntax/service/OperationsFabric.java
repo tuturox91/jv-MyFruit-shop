@@ -2,6 +2,6 @@ package core.basesyntax.service;
 
 import core.basesyntax.service.operations.Operation;
 
-public interface OperationProvider {
+public interface OperationsFabric {
         Operation getOperation();
 }

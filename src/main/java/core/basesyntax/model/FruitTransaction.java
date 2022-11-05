@@ -1,4 +1,4 @@
-package core.basesyntax;
+package core.basesyntax.model;
 
 public class FruitTransaction {
     private OperationType operation;
@@ -44,7 +44,7 @@ public class FruitTransaction {
                 if (operation.getOperation().equals(letterString)) {
                     return operation;
                 }
-            return null;
+            throw new RuntimeException("Operation: " + "'" + letterString + "'" + " is not on the enum of operations.");
         }
     }
 }

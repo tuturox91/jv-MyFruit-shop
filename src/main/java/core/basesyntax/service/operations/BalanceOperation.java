@@ -1,12 +1,12 @@
 package core.basesyntax.service.operations;
 
-import core.basesyntax.FruitTransaction;
-import core.basesyntax.db.ShopStorage;
+import core.basesyntax.db.ShopStorageDao;
+import core.basesyntax.model.FruitTransaction;
 
 public class BalanceOperation implements Operation{
 
     @Override
-    public void doWork(FruitTransaction fruitTransaction) {
-        ShopStorage.storageItems.put(fruitTransaction.getFruitName(), fruitTransaction.getQuantity());
+    public void doWork(FruitTransaction fruitTransaction, ShopStorageDao shopStorageDao) {
+        shopStorageDao.addOrReplace(fruitTransaction.getFruitName(), fruitTransaction.getQuantity());
     }
 }

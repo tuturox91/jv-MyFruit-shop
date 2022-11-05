@@ -1,13 +1,14 @@
-package core.basesyntax.service;
+package core.basesyntax.service.impl;
 
-import core.basesyntax.FruitTransaction;
+import core.basesyntax.db.ShopStorageDao;
+import core.basesyntax.model.FruitTransaction;
+import core.basesyntax.service.OperationsFabric;
 import core.basesyntax.service.operations.*;
 
-public class OperationProviderImpl implements OperationProvider {
-
+public class OperationsFabricImpl implements OperationsFabric {
     FruitTransaction transaction;
 
-    public OperationProviderImpl(FruitTransaction transaction) {
+    public OperationsFabricImpl(FruitTransaction transaction) {
         this.transaction = transaction;
     }
 

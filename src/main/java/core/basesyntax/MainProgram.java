@@ -1,9 +1,11 @@
 package core.basesyntax;
 
 import core.basesyntax.db.ShopStorage;
-import core.basesyntax.service.DataReader;
-import core.basesyntax.service.FileReaderFromCSV;
-import core.basesyntax.service.OperationProviderImpl;
+import core.basesyntax.db.ShopStorageDao;
+import core.basesyntax.db.ShopStorageDaoImpl;
+import core.basesyntax.model.FruitTransaction;
+import core.basesyntax.service.*;
+import core.basesyntax.service.impl.*;
 import core.basesyntax.service.operations.Operation;
 
 import java.nio.file.Path;
@@ -16,18 +18,26 @@ public class MainProgram {
 
     public static void main(String[] args) {
 
-        DataReader reader = new FileReaderFromCSV(Path.of(CSV_FILE_PATH), DATA_SPLITTER);
+        DataReader<List<String>> CSV_reader = new ReadDataFromCSV(Path.of(CSV_FILE_PATH));
 
-        List<FruitTransaction> transactionList = reader.readData();
+        List<String> data = CSV_reader.readData();
 
-        for (FruitTransaction transaction: transactionList) {
-            Operation operation = new OperationProviderImpl(transaction).getOperation();
+        FruitTransactionBuilder fruitTransactionBuilder = new FruitTransactionBuilderFromCSV(data, DATA_SPLITTER);
 
-            operation.doWork(transaction);
+        List<FruitTransaction> fruitTransactions = fruitTransactionBuilder.buildTransactions();
+
+        ShopStorageDao shopStorageDao = new ShopStorageDaoImpl();
+
+        for (FruitTransaction transaction: fruitTransactions) {
+            Operation operation = new OperationsFabricImpl(transaction).getOperation();
+
+            operation.doWork(transaction, shopStorageDao);
         }
 
+        ReportDataImpl reportData = new ReportDataBuilderImpl(shopStorageDao).buildData();
+
+        new WriteDataToCSV(Path.of("report.csv")).writeData(reportData);
+
         ShopStorage.storageItems.forEach((s, integer) -> System.out.println("Name: " + s + " Count: " + integer));
-
-
     }
 }
