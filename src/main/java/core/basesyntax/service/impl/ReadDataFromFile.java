@@ -9,12 +9,12 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadDataFromCSV implements DataReader<List<String>> {
+public class ReadDataFromFile implements DataReader<List<String>> {
     private static final int LINE_SKIP_IN_DATA_FILE = 1;
     private Path filePath;
 
 
-    public ReadDataFromCSV(Path filePath) {
+    public ReadDataFromFile(Path filePath) {
         this.filePath = filePath;
     }
 

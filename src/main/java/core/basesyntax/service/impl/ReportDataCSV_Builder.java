@@ -5,7 +5,7 @@ import core.basesyntax.service.ReportDataService;
 
 import java.util.Map;
 
-public class ReportDataServiceImpl implements ReportDataService<StringBuilder, ShopStorageDao> {
+public class ReportDataCSV_Builder implements ReportDataService<String, ShopStorageDao> {
 
     private String reportHeaderLine = "fruit,quantity";
     private String reportWordSeparator = ",";
@@ -13,18 +13,18 @@ public class ReportDataServiceImpl implements ReportDataService<StringBuilder, S
 
 
 
-    public ReportDataServiceImpl(ShopStorageDao dao, String reportHeaderLine, String reportWordSeparator) {
+    public ReportDataCSV_Builder(ShopStorageDao dao, String reportHeaderLine, String reportWordSeparator) {
         this.reportHeaderLine = reportHeaderLine;
         this.reportWordSeparator = reportWordSeparator;
         this.dao = dao;
     }
 
-    public ReportDataServiceImpl(ShopStorageDao dao) {
+    public ReportDataCSV_Builder(ShopStorageDao dao) {
         this.dao = dao;
     }
 
     @Override
-    public StringBuilder buildData() {
+    public String buildData() {
         Map<String, Integer> data = dao.getAllData();
         StringBuilder reportDataBuilder = new StringBuilder(reportHeaderLine);
         data.forEach((fruitName, count) -> {
@@ -33,6 +33,6 @@ public class ReportDataServiceImpl implements ReportDataService<StringBuilder, S
                     .append(reportWordSeparator)
                     .append(count);
           });
-          return reportDataBuilder;
+          return reportDataBuilder.toString();
     }
 }

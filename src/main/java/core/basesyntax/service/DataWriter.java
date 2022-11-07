@@ -1,5 +1,5 @@
 package core.basesyntax.service;
 
-public interface DataWriter<T extends ReportDataService> {
-    void writeData(T dataBuilder);
+public interface DataWriter {
+    void writeData();
 }

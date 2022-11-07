@@ -1,12 +1,12 @@
 package core.basesyntax.service.impl;
 
 import core.basesyntax.model.FruitTransaction;
-import core.basesyntax.service.FruitTransactionBuilder;
+import core.basesyntax.service.FruitTransactionParser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FruitTransactionBuilderFromCSV implements FruitTransactionBuilder {
+public class FruitTransactionParserFromCSV implements FruitTransactionParser {
 
     private static final int POSITION_OF_OPERATION_LETTER = 0;
     private static final int POSITION_OF_FRUIT_NAME = 1;
@@ -15,13 +15,13 @@ public class FruitTransactionBuilderFromCSV implements FruitTransactionBuilder {
     private String dataSplitter;
     private List<String> fruitData;
 
-    public FruitTransactionBuilderFromCSV(List<String> fruitData, String dataSplitter) {
+    public FruitTransactionParserFromCSV(List<String> fruitData, String dataSplitter) {
         this.fruitData = fruitData;
         this.dataSplitter = dataSplitter;
     }
 
     @Override
-    public List<FruitTransaction> buildTransactions() {
+    public List<FruitTransaction> parseData() {
         List<FruitTransaction> transactions = new ArrayList<>();
         fruitData.forEach(lines -> {
             String[] operationString = lines.split(dataSplitter);

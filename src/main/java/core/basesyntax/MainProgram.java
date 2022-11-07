@@ -18,13 +18,13 @@ public class MainProgram {
 
     public static void main(String[] args) {
 
-        DataReader<List<String>> CSV_reader = new ReadDataFromCSV(Path.of(CSV_FILE_PATH));
+        DataReader<List<String>> CSV_reader = new ReadDataFromFile(Path.of(CSV_FILE_PATH));
 
         List<String> data = CSV_reader.readData();
 
-        FruitTransactionBuilder fruitTransactionBuilder = new FruitTransactionBuilderFromCSV(data, DATA_SPLITTER);
+        FruitTransactionParser fruitTransactionParser = new FruitTransactionParserFromCSV(data, DATA_SPLITTER);
 
-        List<FruitTransaction> fruitTransactions = fruitTransactionBuilder.buildTransactions();
+        List<FruitTransaction> fruitTransactions = fruitTransactionParser.parseData();
 
         ShopStorageDao shopStorageDao = new ShopStorageDaoImpl();
 
@@ -34,9 +34,12 @@ public class MainProgram {
             operation.doWork(transaction, shopStorageDao);
         }
 
-        ReportDataServiceImpl reportData = new ReportDataServiceImpl(shopStorageDao);
+        ReportDataService<String, ShopStorageDao> reportDataBuilder = new ReportDataCSV_Builder(shopStorageDao);
 
-        new WriteDataToCSV(Path.of("report.csv")).writeData(reportData);
+        String reportData = reportDataBuilder.buildData();
+
+        DataWriter csvWriter = new WriteDataToFile(Path.of("report.csv"), reportData.getBytes());
+        csvWriter.writeData();
 
         ShopStorage.storageItems.forEach((s, integer) -> System.out.println("Name: " + s + " Count: " + integer));
     }

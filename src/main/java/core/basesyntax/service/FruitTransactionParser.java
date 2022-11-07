@@ -4,6 +4,6 @@ import core.basesyntax.model.FruitTransaction;
 
 import java.util.List;
 
-public interface FruitTransactionBuilder {
-    List<FruitTransaction> buildTransactions();
+public interface FruitTransactionParser {
+    List<FruitTransaction> parseData();
 }

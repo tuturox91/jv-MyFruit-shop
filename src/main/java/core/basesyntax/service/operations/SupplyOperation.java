@@ -6,6 +6,8 @@ import core.basesyntax.model.FruitTransaction;
 public class SupplyOperation implements Operation{
     @Override
     public void doWork(FruitTransaction fruitTransaction, ShopStorageDao shopStorageDao) {
-        shopStorageDao.addOrReplace(fruitTransaction.getFruitName(), fruitTransaction.getQuantity());
+        String itemName = fruitTransaction.getFruitName();
+        int itemCount = shopStorageDao.getItemCount(itemName);
+        shopStorageDao.addOrReplace(fruitTransaction.getFruitName(), itemCount + fruitTransaction.getQuantity());
     }
 }
